@@ -52,3 +52,26 @@ export const products: Array<Product> = [
         productType: 'furniture'
     },
 ]
+
+export const cartData = [
+    {
+        product: {
+            id: '123142435469',
+            discounted: false,
+            price: 4699,
+            productName: 'Onyx Wood Sofa',
+            productType: 'furniture'
+        },
+        quantity: 1
+    },
+    {
+        product: {
+            id: '123142435460',
+            discounted: false,
+            price: 4699,
+            productName: 'Onyx Wood Sofa',
+            productType: 'furniture'
+        },
+        quantity: 1
+    }
+]
