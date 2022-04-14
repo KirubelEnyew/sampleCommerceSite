@@ -8,7 +8,7 @@ interface NavProps {
 
 const NavBar: React.FC<NavProps> = ({ showCart }) => {
     return (
-        <nav>
+        <nav className='home-nav'>
             <div className='main-icons-container'>
                 <div className='icon-container'>
                     <div className='arrow-down' />
@@ -17,7 +17,7 @@ const NavBar: React.FC<NavProps> = ({ showCart }) => {
                         <div className='inner-icon' />
                     </div>
                 </div>
-                <h4>Shopily</h4>
+                <h4>Shoplly</h4>
             </div>
             <ul>
                 <button className='navbar-button'>Home</button>
@@ -27,7 +27,7 @@ const NavBar: React.FC<NavProps> = ({ showCart }) => {
             </ul>
             <div className='icons-container'>
                 <button onClick={() => showCart(true)} className='icon-button'>
-                    <MdOutlineShoppingBag color='black' />
+                    <MdOutlineShoppingBag color='black' size='20px' />
                 </button>
                 <img className='profile-icon' src='https://picsum.photos/200' alt='pfp' />
             </div>

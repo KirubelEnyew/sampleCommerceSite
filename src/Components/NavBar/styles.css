@@ -1,4 +1,4 @@
-nav {
+nav.home-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -6,14 +6,14 @@ nav {
     border-bottom-style: groove;
     border-bottom-color: rgba(128, 128, 128, 0.1);
     padding: 0px 10px 0px 10px
-    /* background-color: red; */
+        /* background-color: red; */
 }
 
 h4 {
     font-family: sans-serif;
 }
 
-.main-icons-container { 
+.main-icons-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -38,7 +38,7 @@ h4 {
     border-radius: 50%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(144,0,124,0.9164677804295943) 0%, rgba(26,9,121,0.7613365155131265) 35%, rgba(0,181,255,1) 100%);
+    background: linear-gradient(90deg, rgba(144, 0, 124, 0.9164677804295943) 0%, rgba(26, 9, 121, 0.7613365155131265) 35%, rgba(0, 181, 255, 1) 100%);
 }
 
 .inner-icon {
@@ -64,6 +64,7 @@ ul {
     font-weight: 600;
     font-family: sans-serif;
 }
+
 .navbar-button:hover {
     background-color: inherit;
     border: none;
@@ -99,13 +100,13 @@ ul {
 
 /* icon side style */
 
-  .arrow-down {
+.arrow-down {
     position: absolute;
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     transform: translateX(18px);
-    border-top: 5px solid rgba(0,181,255,1);
+    border-top: 5px solid rgba(0, 181, 255, 1);
     /* border-top: 7px solid rgb(255, 0, 64); */
-  }
+}
