@@ -17,7 +17,7 @@ const OrderSummary = () => {
                     <h4>Shoplly</h4>
                 </div>
             </nav>
-            <div style={{ display: 'flex', gap: '5%', padding: '5%' }}>
+            <div style={{ display: 'flex', gap: '5%', padding: '2%' }}>
                 <div className='left-container-summary'>
                     <div className='thumb-up-container'>
                         <MdThumbUp size='40px' color='white' />

@@ -10,7 +10,7 @@ const Checkout = () => {
         navigate('/summary')
     }
     return (
-        <div style={{ backgroundColor: 'whitesmoke', minHeight: '100vh' }}>
+        <div style={{ backgroundColor: 'whitesmoke', minHeight: '100vh', padding: '15px' }}>
             <nav id='order-nav'>
                 <div className='main-icons-container'>
                     <div className='icon-container'>
@@ -23,7 +23,7 @@ const Checkout = () => {
                     <h4>Shoplly</h4>
                 </div>
             </nav>
-            <div style={{ display: 'flex', gap: '5%', padding: '5%' }}>
+            <div style={{ display: 'flex', gap: '5%', padding: '3%' }}>
                 <form onSubmit={(e) => handleSubmit(e)} className='left-container'>
                     <div className='left-form'>
                         <h5>Contact Information</h5>
