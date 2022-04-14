@@ -1,11 +1,14 @@
 .product-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 50px;
+    row-gap: 25px;
+    column-gap: 50px;
+    max-height: 715px;
+    overflow-y: auto;
 }
 
 .product-card {
-    width: 240px;
+    width: 250px;
     height: 325px;
     padding: 10px;
     display: flex;
@@ -33,7 +36,7 @@
     height: 30px;
     width: 30px;
     display: flex;
-    margin: 5px;
+    margin-top: 5px;
     justify-content: center;
     align-items: center;
     background-color: orangered;
@@ -57,6 +60,10 @@
     background-color: black;
     font-family: sans-serif;
 }
+/* .product-button:hover {
+    background-color: black;
+    color: white;
+} */
 
 h5 {
     font-family: sans-serif;

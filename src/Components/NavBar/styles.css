@@ -20,6 +20,11 @@ h4 {
     column-gap: 10px;
 }
 
+.icon-container {
+    position: relative;
+    width: 30px;
+}
+
 .main-icon {
     width: 30px;
     height: 30px;
@@ -33,7 +38,7 @@ h4 {
     border-radius: 50%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(124,0,144,1) 0%, rgba(9,11,121,1) 35%, rgba(0,181,255,1) 100%);
+    background: linear-gradient(90deg, rgba(144,0,124,0.9164677804295943) 0%, rgba(26,9,121,0.7613365155131265) 35%, rgba(0,181,255,1) 100%);
 }
 
 .inner-icon {
@@ -52,14 +57,14 @@ ul {
     list-style: none;
 }
 
-button {
+.navbar-button {
     background-color: inherit;
     border: none;
     color: gray;
     font-weight: 600;
     font-family: sans-serif;
 }
-button:hover {
+.navbar-button:hover {
     background-color: inherit;
     border: none;
     color: black;
@@ -91,3 +96,16 @@ button:hover {
     align-items: center;
     justify-content: center;
 }
+
+/* icon side style */
+
+  .arrow-down {
+    position: absolute;
+    width: 0; 
+    height: 0; 
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    transform: translateX(18px);
+    border-top: 5px solid rgba(0,181,255,1);
+    /* border-top: 7px solid rgb(255, 0, 64); */
+  }
