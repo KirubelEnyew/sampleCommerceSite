@@ -2,8 +2,13 @@ p {
     font-family: sans-serif;
 }
 
-h4 {
+h4,
+h3,
+h2,
+h1 {
     font-family: sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .left-container {
@@ -11,6 +16,15 @@ h4 {
     display: flex;
     row-gap: 50px;
     flex-direction: column;
+}
+
+.left-container-summary {
+    width: 40%;
+    display: flex;
+    row-gap: 25px;
+    min-height: 50vh;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .left-form {
@@ -76,4 +90,13 @@ h4 {
     margin-inline: 5%;
     padding-top: 15px;
     column-gap: 15px;
+}
+
+.thumb-up-container {
+    width: 65px;
+    height: 65px;
+    border-radius: 65px;
+    background-color: rgb(92, 186, 92);
+    display: grid;
+    place-items: center;
 }
