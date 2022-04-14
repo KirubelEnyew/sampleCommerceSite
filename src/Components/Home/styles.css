@@ -1,0 +1,111 @@
+.top-tabs-container {
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    /* padding-top: 20px; */
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid ;
+    border-bottom-color: rgba(128, 128, 128, 0.1);
+}
+
+.search-field-container {
+    position: relative;
+    width: 345px;
+    height: 35px;
+    margin-bottom: 15px;
+    /* background-color: blue; */
+}
+
+body {
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
+    z-index: 1;
+}
+
+.search-icon {
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    padding-left: 5px;
+    /* background-color: red; */
+}
+
+.search-field {
+    border-radius: 35px;
+    height: 35px;
+    padding-left: 45px;
+    width: 100%;
+    font-size: medium;
+    border-color: lightgray;
+    border-top-width: 1px;
+    border-left-width: 1px;
+}
+
+.category-list {
+    display: flex;
+    flex-direction: row;
+    column-gap: 45px;
+    list-style: none;
+}
+
+.main-body {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.products-container {
+    margin-top: 45px;
+    width: 70%;
+    margin-left: 5%;
+}
+
+.filter-sort-container {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.filter-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    align-items: flex-start;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    font-family: sans-serif;
+}
+
+input[type="checkbox"]:checked {
+    color: black;
+}
+
+.header {
+    font-family: sans-serif ;
+    border-bottom: 1px solid lightgrey;
+    height: 25px;
+    margin-bottom: 10px;
+    margin-top: 25px;
+}
+
+/* cart container style  */
+
+.cart-container {
+    background-color: rgba(0, 0, 0, 0.589);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 120vh;
+    width: 100%;
+}
+
+.close-icon {
+    background: linear-gradient(90deg, rgba(144,0,124,0.9164677804295943) 0%, rgba(26,9,121,0.7613365155131265) 35%, rgba(0,181,255,1) 100%);
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+}
