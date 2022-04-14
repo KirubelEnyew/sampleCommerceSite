@@ -1,9 +1,10 @@
 import NavBar from '../NavBar/NavBar'
 import './styles.css'
-import { MdSearch, MdClose } from 'react-icons/md'
+import { MdSearch, MdClose, MdRemove, MdAdd } from 'react-icons/md'
 import Products from '../Products/Products'
-import { products } from '../../Shared/products'
+import { cartData, products } from '../../Shared/products'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const HomePage = () => {
     const [showCart, setShowCart] = useState(false)
@@ -11,7 +12,7 @@ const HomePage = () => {
         setShowCart(value)
     }
     return (
-        <div>
+        <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
             <NavBar showCart={handleCartVisibility} />
             <div className='top-tabs-container'>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -90,15 +91,64 @@ const HomePage = () => {
                 </div>
             </div>
             {showCart &&
-                <div className='cart-container'>
-                    <div className='cart-paper'>
+                <div className='backdrop'>
+                    <div className='cart-container'>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                             <button
-                                className='navbar-button'
+                                className='close-button'
                                 onClick={() => setShowCart(false)}
                             >
-                                Close <MdClose className='close-icon' />
+                                Close <MdClose className='close-icon' size='10px' />
                             </button>
+                        </div>
+                        <hr style={{ width: '100%' }} color='lightgrey' />
+                        {cartData.map((item, index) => (
+                            <div key={item.product.id} className='cart-item'>
+                                <img
+                                    src={`https://picsum.photos/200${index}`}
+                                    className='cart-product-image'
+                                    alt='product-img'
+                                />
+                                <div className='cart-item-description'>
+                                    <div>
+                                        <h4>{item.product.productName}</h4>
+                                        <h5>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint unde dolorem culpa totam velit animi eum.</h5>
+                                    </div>
+                                    <h4>${item.product.price}</h4>
+                                </div>
+                                <div className='item-buttons-container'>
+                                    <button className='cart-icon-button'> <MdClose size='20px' /> </button>
+                                    <div className='quantity-container'>
+                                        <button className='cart-icon-button'> <MdRemove size='20px' /> </button>
+                                        {item.quantity}
+                                        <button className='cart-icon-button'> <MdAdd size='20px' /> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                        <div className='cart-summary-container'>
+                            <hr style={{ width: '100%' }} color='lightgrey' />
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <h5>TOTAL INCL TAX</h5>
+                                <h5>$9999</h5>
+                            </div>
+                            <hr style={{ width: '100%' }} color='lightgrey' />
+                            <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '10px', marginTop: '20px' }}>
+                                <button
+                                    onClick={() => setShowCart(false)}
+                                    className='summary-button'
+                                >
+                                    Continue Shopping
+                                </button>
+                                <Link to='/checkout' style={{ textDecoration: 'none' }}>
+                                    <button
+                                        style={{ backgroundColor: 'black', color: 'white' }}
+                                        className='summary-button'
+                                    >
+                                        Proccess to Checkout
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
