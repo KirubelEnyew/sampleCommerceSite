@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { MdThumbUp } from 'react-icons/md'
 import { Link } from 'react-router-dom'
-import { cartData } from '../../Shared/products'
+import CartContext, { CartObject } from '../../Shared/CartContext'
 
 const OrderSummary = () => {
+    const { cartData } = useContext(CartContext)
     return (
         <div style={{ backgroundColor: 'whitesmoke', minHeight: '100vh', padding: '15px' }}>
             <nav id='order-nav'>
@@ -60,7 +61,7 @@ const OrderSummary = () => {
                             <h5>$9448</h5>
                         </div>
                     </div>
-                    {cartData.map((item, index) => (
+                    {cartData.map((item: CartObject, index: number) => (
                         <div
                             style={index + 1 === cartData.length ? { border: 'none' } : undefined}
                             key={item.product.id}

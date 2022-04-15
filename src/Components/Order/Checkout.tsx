@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
-import { cartData } from '../../Shared/products'
+import CartContext, { CartObject } from '../../Shared/CartContext'
 import './styles.css'
 const Checkout = () => {
     const navigate = useNavigate()
@@ -9,6 +9,8 @@ const Checkout = () => {
         e.preventDefault()
         navigate('/summary')
     }
+    const { cartData } = useContext(CartContext)
+
     return (
         <div style={{ backgroundColor: 'whitesmoke', minHeight: '100vh', padding: '15px' }}>
             <nav id='order-nav'>
@@ -95,7 +97,7 @@ const Checkout = () => {
                     </div>
                 </form>
                 <div className='right-container'>
-                    {cartData.map((item, index) => (
+                    {cartData.map((item: CartObject, index: number) => (
                         <div key={item.product.id} className='order-cart-item'>
                             <img
                                 src={`https://picsum.photos/200${index}`}

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useCallback } from 'react'
 import { Product, ProductKind } from '../../Shared/products'
 import './styles.css'
 import { MdCheck } from 'react-icons/md'
@@ -11,38 +11,35 @@ interface Props {
 const Products: React.FC<Props> = ({ data, filter }) => {
   const [hoverFor, setHoverFor] = useState('')
   const [products, setProducts] = useState<Array<Product>>([])
-  const [itemExists, setItemExists] = useState(false)
-  // const [cartState, setCartState] = useState<any>()
   const { setCartData, cartData } = useContext(CartContext)
-  const handleAddToCart = (value: { product: Product, quantity: number }) => {
-    setItemExists(false)
+  const handleAddToCart = useCallback((value: { product: Product, quantity: number }) => {
     let newCartData = [...cartData]
-    cartData.forEach((cartValue: CartObject, index: number) => {
+    cartData.forEach((cartValue: CartObject) => {
       if (cartValue.product.id === value.product.id) {
         let newData = newCartData.filter(entry => entry.product.id !== value.product.id)
         setCartData(newData)
-        setItemExists(true)
+        console.log(newData);
       }
     })
-    if (itemExists) {
-      return
-    }
+    console.log('object');
     newCartData.push(value)
     setCartData(newCartData)
-  }
+  }, [cartData, setCartData])
 
-  const checkItemExists = (product: Product) => {
+  const checkItemExists = useCallback((product: Product) => {
+    let exists = false
     cartData.forEach((cartValue: CartObject) => {
       if (cartValue.product.id === product.id) {
-        return true
+        exists = true
       }
     })
-    return false
-  }
+    return exists
+  }, [cartData])
 
   useEffect(() => {
+    // console.log(cartData);
     setProducts(data)
-  }, [data])
+  }, [data, cartData])
   return (
     <div className='product-container' id='slide-up'>
       {products.map((product, index) => (
@@ -70,9 +67,11 @@ const Products: React.FC<Props> = ({ data, filter }) => {
               onClick={() => { handleAddToCart({ product, quantity: 1 }) }}
               onMouseOver={() => setHoverFor(product.id)}
               onMouseOut={() => setHoverFor('')}
-              className={checkItemExists(product) ? 'summary-button' : 'product-button'}
+              className='product-button'
+              style={checkItemExists(product) ? { backgroundColor: 'inherit', color: 'black' } : undefined}
             >
-              ADD TO CART {product.id === hoverFor && <MdCheck />}
+              {/* eslint-disable-next-line */}
+              {checkItemExists(product) ? 'Added' : 'ADD TO CART'} {product.id === hoverFor || checkItemExists(product) && <MdCheck />}
             </button>
           </div>
           :
@@ -99,9 +98,11 @@ const Products: React.FC<Props> = ({ data, filter }) => {
               onClick={() => { handleAddToCart({ product, quantity: 1 }) }}
               onMouseOver={() => setHoverFor(product.id)}
               onMouseOut={() => setHoverFor('')}
-              className={checkItemExists(product) ? 'summary-button' : 'product-button'}
+              className='product-button'
+              style={checkItemExists(product) ? { backgroundColor: 'white ', color: 'black' } : undefined}
             >
-              ADD TO CART {product.id === hoverFor && <MdCheck />}
+              {/* eslint-disable-next-line */}
+              {checkItemExists(product) ? 'Added' : 'ADD TO CART'} {product.id === hoverFor || checkItemExists(product) && <MdCheck />}
             </button>
           </div>
       ))}
