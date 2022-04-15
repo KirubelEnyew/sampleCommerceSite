@@ -1,5 +1,6 @@
 import React from 'react'
 import { MdThumbUp } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 import { cartData } from '../../Shared/products'
 
 const OrderSummary = () => {
@@ -26,11 +27,13 @@ const OrderSummary = () => {
                         <h2>Thank you for shopping with Shoplly.</h2>
                         <h5>Your order is on the way.</h5>
                     </div>
-                    <button
-                        className='summary-button'
-                    >
-                        Back to Shopping
-                    </button>
+                    <Link to='/' style={{ textDecoration: 'none' }}>
+                        <button
+                            className='summary-button'
+                        >
+                            Back to Shopping
+                        </button>
+                    </Link>
                 </div>
 
                 <div className='right-container'>

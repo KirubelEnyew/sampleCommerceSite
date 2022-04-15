@@ -9,6 +9,10 @@
     border-bottom-color: rgba(128, 128, 128, 0.1);
 }
 
+#active-tab-button {
+    color: black;
+}
+
 .search-field-container {
     position: relative;
     width: 345px;
@@ -105,14 +109,32 @@ input[type="checkbox"]:checked {
     justify-content: flex-end;
 }
 
-.cart-container {
-    width: 50%;
-    min-height: 100vh;
+#cart-container {
+    position: absolute;
+    right: -53%;
+    height: 100vh;
     background-color: white;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 40px;
     padding-right: 40px;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+}
+
+.slide-in {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+    
+@keyframes slide-in {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
+
+@-webkit-keyframes slide-in {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(-100%); }
 }
 
 .cart-item {
