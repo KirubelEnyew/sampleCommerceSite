@@ -354,7 +354,7 @@ const HomePage = () => {
             {/* pop up cart and backdrop container */}
 
             {showCart &&
-                <div className='backdrop' onClick={() => setShowCart(false)}>
+                <div className='backdrop'>
                     <div id='cart-container' className='slide-in'>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                             <button
@@ -388,9 +388,9 @@ const HomePage = () => {
                                     <div className='item-buttons-container'>
                                         <button className='cart-icon-button'> <MdClose size='20px' /> </button>
                                         <div className='quantity-container'>
-                                            <button className='cart-icon-button'> <MdRemove size='20px' /> </button>
+                                            <button onClick={() => { }} className='cart-icon-button'> <MdRemove size='20px' /> </button>
                                             {item.quantity}
-                                            <button className='cart-icon-button'> <MdAdd size='20px' /> </button>
+                                            <button onClick={() => { }} className='cart-icon-button'> <MdAdd size='20px' /> </button>
                                         </div>
                                     </div>
                                 </div>
