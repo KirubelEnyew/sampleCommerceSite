@@ -43,6 +43,13 @@ const HomePage = () => {
         setCartData(newCartData)
     }
 
+    const handleRemoveItem = (index: number) => {
+        let newCartData = [...cartData]
+        newCartData.splice(index, 1)
+        console.log(newCartData);
+        setCartData(newCartData)
+    }
+
     useEffect(() => {
         handlePrice()
     }, [showCart, cartData, setCartData])
@@ -400,7 +407,7 @@ const HomePage = () => {
                                         <h4>${item.product.price}</h4>
                                     </div>
                                     <div className='item-buttons-container'>
-                                        <button className='cart-icon-button'> <MdClose size='20px' /> </button>
+                                        <button onClick={() => { handleRemoveItem(index) }} className='cart-icon-button'> <MdClose size='20px' /> </button>
                                         <div className='quantity-container'>
                                             <button
                                                 onClick={() => { handleQuantity(item, 'dec') }}
