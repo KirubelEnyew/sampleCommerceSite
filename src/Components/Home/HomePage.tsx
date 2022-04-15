@@ -2,12 +2,14 @@ import NavBar from '../NavBar/NavBar'
 import './styles.css'
 import { MdSearch, MdClose, MdRemove, MdAdd } from 'react-icons/md'
 import Products from '../Products/Products'
-import { cartData, electronicProducts, ProductKind, products } from '../../Shared/products'
-import React, { useState } from 'react'
+import { electronicProducts, ProductKind, products } from '../../Shared/products'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import CartContext, { CartObject } from '../../Shared/CartContext'
 
 const HomePage = () => {
     const [showCart, setShowCart] = useState(false)
+    const { cartData } = useContext(CartContext)
     const handleCartVisibility = (value: boolean) => {
         setShowCart(value)
     }
@@ -20,6 +22,7 @@ const HomePage = () => {
 
     const tabHandler = (value: TabValues) => {
         setCurentTab(value)
+        setFilter(undefined)
     }
     const filterHandler = (value: ProductKind) => {
         if (value !== filter) {
@@ -27,6 +30,18 @@ const HomePage = () => {
             return
         }
         setFilter(undefined)
+    }
+
+    const handleSort = (value: string) => {
+        let sortedValue = [...productData]
+        if (value === 'price-asc') {
+            sortedValue.sort((firstItem, secondItem) => firstItem.price - secondItem.price);
+        } else if (value === 'price-desc') {
+            sortedValue.sort((firstItem, secondItem) => secondItem.price - firstItem.price);
+        } else if (value === 'discounts') {
+            sortedValue.sort((firstItem, secondItem) => Number(secondItem.discounted) - Number(firstItem.discounted))
+        }
+        setProductData(sortedValue)
     }
 
     // filter elements
@@ -278,20 +293,40 @@ const HomePage = () => {
                     <span className='header'>Sort</span>
                     <ul className='filter-list'>
                         <div>
-                            <input type="radio" id="discounts" name="sort-group" value="discounts" />
+                            <input
+                                type="radio"
+                                id="discounts"
+                                name="sort-group"
+                                value="discounts"
+                                onChange={(e: any) => handleSort(e.target.value)} />
                             <label htmlFor="discounts">Discounts</label>
                         </div>
                         <div>
-                            <input type="radio" id="bestSelling" name="sort-group" value="bestSelling" />
-                            <label htmlFor="bestSelling">Best Selling</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="price-asc" name="sort-group" value="price-asc" />
+                            <input
+                                type="radio"
+                                id="price-asc"
+                                name="sort-group"
+                                value="price-asc"
+                                onChange={(e: any) => handleSort(e.target.value)} />
                             <label htmlFor="price-asc">Price-Low to High</label>
                         </div>
                         <div>
-                            <input type="radio" id="price-desc" name="sort-group" value="price-desc" />
+                            <input
+                                type="radio"
+                                id="price-desc"
+                                name="sort-group"
+                                value="price-desc"
+                                onChange={(e: any) => handleSort(e.target.value)} />
                             <label htmlFor="price-desc">Price-Hight to Low</label>
+                        </div>
+                        <div>
+                            <input
+                                type="radio"
+                                id="bestSelling"
+                                name="sort-group"
+                                value="bestSelling"
+                                onChange={(e: any) => handleSort(e.target.value)} />
+                            <label htmlFor="bestSelling">Best Selling</label>
                         </div>
                     </ul>
                 </div>
@@ -317,35 +352,41 @@ const HomePage = () => {
                             </button>
                         </div>
                         <hr style={{ width: '100%' }} color='lightgrey' />
-                        {cartData.map((item, index) => (
-                            <div key={item.product.id} className='cart-item'>
-                                <img
-                                    src={`https://picsum.photos/200${index}`}
-                                    className='cart-product-image'
-                                    alt='product-img'
-                                />
-                                <div className='cart-item-description'>
-                                    <div>
-                                        <h4>{item.product.productName}</h4>
-                                        <h5>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint unde dolorem culpa totam velit animi eum.</h5>
-                                    </div>
-                                    <h4>${item.product.price}</h4>
-                                </div>
-                                <div className='item-buttons-container'>
-                                    <button className='cart-icon-button'> <MdClose size='20px' /> </button>
-                                    <div className='quantity-container'>
-                                        <button className='cart-icon-button'> <MdRemove size='20px' /> </button>
-                                        {item.quantity}
-                                        <button className='cart-icon-button'> <MdAdd size='20px' /> </button>
-                                    </div>
-                                </div>
+                        {!cartData.length ?
+                            <div style={{ height: '250px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                                <h1>Your Cart is Empty</h1>
+                                <h3>Please add items to proceed to checkout</h3>
                             </div>
-                        ))}
+                            :
+                            cartData.map((item: CartObject, index: number) => (
+                                <div key={item.product.id} className='cart-item'>
+                                    <img
+                                        src={`https://picsum.photos/200${index}`}
+                                        className='cart-product-image'
+                                        alt='product-img'
+                                    />
+                                    <div className='cart-item-description'>
+                                        <div>
+                                            <h4>{item.product.productName}</h4>
+                                            <h5>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint unde dolorem culpa totam velit animi eum.</h5>
+                                        </div>
+                                        <h4>${item.product.price}</h4>
+                                    </div>
+                                    <div className='item-buttons-container'>
+                                        <button className='cart-icon-button'> <MdClose size='20px' /> </button>
+                                        <div className='quantity-container'>
+                                            <button className='cart-icon-button'> <MdRemove size='20px' /> </button>
+                                            {item.quantity}
+                                            <button className='cart-icon-button'> <MdAdd size='20px' /> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         <div className='cart-summary-container'>
                             <hr style={{ width: '100%' }} color='lightgrey' />
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <h5>TOTAL INCL TAX</h5>
-                                <h5>$9999</h5>
+                                <h5>{!cartData.lenght ? 'N/A' : '$9999'}</h5>
                             </div>
                             <hr style={{ width: '100%' }} color='lightgrey' />
                             <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '10px', marginTop: '20px' }}>
@@ -359,6 +400,7 @@ const HomePage = () => {
                                     <button
                                         style={{ backgroundColor: 'black', color: 'white' }}
                                         className='summary-button'
+                                        disabled={!cartData.lenght ? true : false}
                                     >
                                         Proccess to Checkout
                                     </button>
