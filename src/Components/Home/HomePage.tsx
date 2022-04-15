@@ -398,9 +398,9 @@ const HomePage = () => {
                                 </button>
                                 <Link to='/checkout' style={{ textDecoration: 'none' }}>
                                     <button
-                                        style={{ backgroundColor: 'black', color: 'white' }}
+                                        style={!cartData.length ? { backgroundColor: 'grey', color: 'darkgrey' } : { backgroundColor: 'black', color: 'white' }}
                                         className='summary-button'
-                                        disabled={!cartData.lenght ? true : false}
+                                        disabled={!cartData.length}
                                     >
                                         Proccess to Checkout
                                     </button>
