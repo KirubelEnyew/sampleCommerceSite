@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './styles.css'
 import { MdOutlineShoppingBag } from 'react-icons/md'
 import { useLocation } from 'react-router-dom'
+import CartContext from '../../Shared/CartContext'
 
 interface NavProps {
     showCart: (value: boolean) => void
 }
 
 const NavBar: React.FC<NavProps> = ({ showCart }) => {
+    const { cartData } = useContext(CartContext)
     const location = useLocation()
     return (
         <nav className='home-nav'>
@@ -40,9 +42,16 @@ const NavBar: React.FC<NavProps> = ({ showCart }) => {
                 </div>
             </ul>
             <div className='icons-container'>
-                <button onClick={() => showCart(true)} className='icon-button'>
-                    <MdOutlineShoppingBag color='black' size='20px' />
-                </button>
+                <div style={{ position: 'relative' }}>
+                    <button onClick={() => showCart(true)} className='icon-button'>
+                        <MdOutlineShoppingBag color='black' size='20px' />
+                    </button>
+                    <div className='close-icon' style={{ position: 'absolute', bottom: '70%', right: -5 }}>
+                        <div style={{ display: 'grid', placeItems: 'center' }}>
+                            {cartData.length}
+                        </div>
+                    </div>
+                </div>
                 <img className='profile-icon' src='https://picsum.photos/200' alt='pfp' />
             </div>
         </nav>
