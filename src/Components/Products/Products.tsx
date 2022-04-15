@@ -12,19 +12,6 @@ const Products: React.FC<Props> = ({ data, filter }) => {
   const [hoverFor, setHoverFor] = useState('')
   const [products, setProducts] = useState<Array<Product>>([])
   const { setCartData, cartData } = useContext(CartContext)
-  const handleAddToCart = useCallback((value: { product: Product, quantity: number }) => {
-    let newCartData = [...cartData]
-    cartData.forEach((cartValue: CartObject) => {
-      if (cartValue.product.id === value.product.id) {
-        let newData = newCartData.filter(entry => entry.product.id !== value.product.id)
-        setCartData(newData)
-        console.log(newData);
-      }
-    })
-    console.log('object');
-    newCartData.push(value)
-    setCartData(newCartData)
-  }, [cartData, setCartData])
 
   const checkItemExists = useCallback((product: Product) => {
     let exists = false
@@ -35,6 +22,17 @@ const Products: React.FC<Props> = ({ data, filter }) => {
     })
     return exists
   }, [cartData])
+
+  const handleAddToCart = useCallback((value: { product: Product, quantity: number }) => {
+    let newCartData = [...cartData]
+    if (checkItemExists(value.product)) {
+      newCartData.splice(newCartData.indexOf(value), 1)
+      setCartData(newCartData)
+      return
+    }
+    newCartData.push(value)
+    setCartData(newCartData)
+  }, [cartData, setCartData, checkItemExists])
 
   useEffect(() => {
     // console.log(cartData);
