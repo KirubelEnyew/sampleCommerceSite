@@ -3,7 +3,7 @@ import './styles.css'
 import { MdSearch, MdClose, MdRemove, MdAdd } from 'react-icons/md'
 import Products from '../Products/Products'
 import { electronicProducts, ProductKind, products } from '../../Shared/products'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CartContext, { CartObject } from '../../Shared/CartContext'
 
@@ -17,8 +17,21 @@ const HomePage = () => {
     type TabValues = 'Furniture' | 'Electronics' | 'Vehicles' | 'Accessories' | 'Fashion'
     const [currentTab, setCurentTab] = useState<TabValues>('Furniture')
     const [filter, setFilter] = useState<ProductKind | undefined>(undefined)
+    const [totalPrice, setTotalPrice] = useState(0)
 
     //handler functions
+
+    const handlePrice = () => {
+        let price = 0
+        cartData.forEach((cartItem: CartObject) => {
+            price += cartItem.product.price * cartItem.quantity
+        })
+        setTotalPrice(price)
+    }
+
+    useEffect(() => {
+        handlePrice()
+    }, [showCart])
 
     const tabHandler = (value: TabValues) => {
         setCurentTab(value)
@@ -386,7 +399,7 @@ const HomePage = () => {
                             <hr style={{ width: '100%' }} color='lightgrey' />
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <h5>TOTAL INCL TAX</h5>
-                                <h5>{!cartData.lenght ? 'N/A' : '$9999'}</h5>
+                                <h5>{!cartData.length ? 'N/A' : `$${totalPrice}`}</h5>
                             </div>
                             <hr style={{ width: '100%' }} color='lightgrey' />
                             <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '10px', marginTop: '20px' }}>

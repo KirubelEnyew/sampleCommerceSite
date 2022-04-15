@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
 import CartContext, { CartObject } from '../../Shared/CartContext'
@@ -10,7 +10,22 @@ const Checkout = () => {
         navigate('/summary')
     }
     const { cartData } = useContext(CartContext)
-
+    const cartEmpty = () => {
+        if (!cartData.length)
+            navigate('/')
+    }
+    const [totalPrice, setTotalPrice] = useState(0)
+    const handlePrice = () => {
+        let price = 0
+        cartData.forEach((cartItem: CartObject) => {
+            price += cartItem.product.price * cartItem.quantity
+        })
+        setTotalPrice(price)
+    }
+    useEffect(() => {
+        handlePrice()
+        cartEmpty()
+    }, [])
     return (
         <div style={{ backgroundColor: 'whitesmoke', minHeight: '100vh', padding: '15px' }}>
             <nav id='order-nav'>
@@ -116,7 +131,7 @@ const Checkout = () => {
                     <div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
                             <h5 style={{ color: 'lightgrey' }}>SUBTOTAL</h5>
-                            <h5>$9398</h5>
+                            <h5>${totalPrice}</h5>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '15px' }}>
                             <h5 style={{ color: 'lightgrey' }}>SHIPPING</h5>
@@ -128,7 +143,7 @@ const Checkout = () => {
                         <h5 style={{ color: 'lightgrey' }}>TOTAL</h5>
                         <div style={{ display: 'flex', columnGap: '10px' }}>
                             <h5 style={{ color: 'lightgrey' }}>USD</h5>
-                            <h5>$9448</h5>
+                            <h5>${totalPrice + 50}</h5>
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MdThumbUp } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import CartContext, { CartObject } from '../../Shared/CartContext'
 
 const OrderSummary = () => {
-    const { cartData } = useContext(CartContext)
+    const { cartData, setCartData } = useContext(CartContext)
+    const [totalPrice, setTotalPrice] = useState(0)
+    const handlePrice = () => {
+        let price = 0
+        cartData.forEach((cartItem: CartObject) => {
+            price += cartItem.product.price * cartItem.quantity
+        })
+        setTotalPrice(price)
+    }
+    useEffect(() => {
+        handlePrice()
+        return () => {
+            setCartData([])
+        }
+    }, [])
     return (
         <div style={{ backgroundColor: 'whitesmoke', minHeight: '100vh', padding: '15px' }}>
             <nav id='order-nav'>
@@ -58,7 +72,7 @@ const OrderSummary = () => {
                         <h5 style={{ color: 'lightgrey' }}>TOTAL</h5>
                         <div style={{ display: 'flex', columnGap: '10px' }}>
                             <h5 style={{ color: 'lightgrey' }}>USD</h5>
-                            <h5>$9448</h5>
+                            <h5>${totalPrice}</h5>
                         </div>
                     </div>
                     {cartData.map((item: CartObject, index: number) => (
