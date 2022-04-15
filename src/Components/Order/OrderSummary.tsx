@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import CartContext, { CartObject } from '../../Shared/CartContext'
 
 const OrderSummary = () => {
-    const { cartData, setCartData } = useContext(CartContext)
+    const { cartData, setCartData, formData, setFormData } = useContext(CartContext)
     const [totalPrice, setTotalPrice] = useState(0)
     const handlePrice = () => {
         let price = 0
@@ -17,6 +17,7 @@ const OrderSummary = () => {
         handlePrice()
         return () => {
             setCartData([])
+            setFormData({})
         }
     }, [])
     return (
@@ -64,7 +65,7 @@ const OrderSummary = () => {
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <h5 style={{ color: 'lightgrey' }}>Shipping Details</h5>
-                            <h5>{`NAME, ADDRESS, CITY, COUNTRY`}</h5>
+                            <h5>{`${formData.firstName} ${formData.lastName}, ${formData.address1}, ${formData.city}, ${formData.country}`}</h5>
                         </div>
                     </div>
                     <hr style={{ width: '100%' }} color='lightgrey' />

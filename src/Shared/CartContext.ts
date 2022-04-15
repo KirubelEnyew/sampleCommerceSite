@@ -12,6 +12,8 @@ export interface CartObject {
 }
 
 const CartContext: React.Context<Array<CartObject> | any> = createContext({
+    fontData: {},
+    setFormData: () => { },
     cartData: [],
     setCartData: () => []
 })

@@ -6,8 +6,9 @@ import { Product } from './Shared/products';
 
 function App() {
   const [cartData, setCartData] = useState<Array<Product>>([])
+  const [formData, setFormData] = useState({ email: '', firstName: '', lastName: '', address1: '', address2: '', city: '', country: '', zip: '' })
   return (
-    <CartContext.Provider value={{ cartData, setCartData }}>
+    <CartContext.Provider value={{ cartData, setCartData, setFormData, formData }}>
       <BrowserRouter>
         <RouteComponent />
       </BrowserRouter>

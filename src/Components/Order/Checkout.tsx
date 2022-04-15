@@ -5,16 +5,19 @@ import CartContext, { CartObject } from '../../Shared/CartContext'
 import './styles.css'
 const Checkout = () => {
     const navigate = useNavigate()
+    const { cartData, setFormData } = useContext(CartContext)
+    const [orderData, setOrderData] = useState({ email: '', firstName: '', lastName: '', address1: '', address2: '', city: '', country: '', zip: '' })
+    const [totalPrice, setTotalPrice] = useState(0)
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setFormData(orderData)
         navigate('/summary')
     }
-    const { cartData } = useContext(CartContext)
     const cartEmpty = () => {
         if (!cartData.length)
             navigate('/')
     }
-    const [totalPrice, setTotalPrice] = useState(0)
     const handlePrice = () => {
         let price = 0
         cartData.forEach((cartItem: CartObject) => {
@@ -46,6 +49,7 @@ const Checkout = () => {
                         <h5>Contact Information</h5>
                         <input
                             // required
+                            onChange={(e) => setOrderData({ ...orderData, email: e.target.value })}
                             className='order-input'
                             placeholder='Email or Phone Number'
                         />
@@ -53,12 +57,14 @@ const Checkout = () => {
                         <div style={{ display: 'flex', flexDirection: 'row', gap: '5%' }}>
                             <input
                                 // required
+                                onChange={(e) => setOrderData({ ...orderData, firstName: e.target.value })}
                                 style={{ width: '50%' }}
                                 className='order-input'
                                 placeholder='First Name'
                             />
                             <input
                                 // required
+                                onChange={(e) => setOrderData({ ...orderData, lastName: e.target.value })}
                                 style={{ width: '50%' }}
                                 className='order-input'
                                 placeholder='Last Name'
@@ -66,24 +72,29 @@ const Checkout = () => {
                         </div>
                         <input
                             // required
+                            onChange={(e) => setOrderData({ ...orderData, address1: e.target.value })}
                             className='order-input'
                             placeholder='Address Line 1' />
                         <input
                             // required
+                            onChange={(e) => setOrderData({ ...orderData, address2: e.target.value })}
                             className='order-input'
                             placeholder='Address Line 2' />
                         <input
                             // required
+                            onChange={(e) => setOrderData({ ...orderData, city: e.target.value })}
                             className='order-input'
                             placeholder='City/Town' />
                         <div style={{ display: 'flex', flexDirection: 'row', gap: '5%' }}>
                             <input
                                 // required
+                                onChange={(e) => setOrderData({ ...orderData, country: e.target.value })}
                                 style={{ width: '50%' }}
                                 className='order-input'
                                 placeholder='Country' type='select' />
                             <input
                                 // required
+                                onChange={(e) => setOrderData({ ...orderData, zip: e.target.value })}
                                 style={{ width: '50%' }}
                                 className='order-input'
                                 placeholder='Postal/Zip' />
