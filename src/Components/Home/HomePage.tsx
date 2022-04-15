@@ -9,7 +9,7 @@ import CartContext, { CartObject } from '../../Shared/CartContext'
 
 const HomePage = () => {
     const [showCart, setShowCart] = useState(false)
-    const { cartData } = useContext(CartContext)
+    const { cartData, setCartData } = useContext(CartContext)
     const handleCartVisibility = (value: boolean) => {
         setShowCart(value)
     }
@@ -29,9 +29,23 @@ const HomePage = () => {
         setTotalPrice(price)
     }
 
+    const handleQuantity = (item: CartObject, operation: 'inc' | 'dec') => {
+        const newCartData = [...cartData]
+        cartData.forEach((cartValue: CartObject, index: number) => {
+            if (cartValue.product.id === item.product.id) {
+                if (operation === 'inc') {
+                    newCartData[index].quantity += 1
+                } else {
+                    newCartData[index].quantity -= 1
+                }
+            }
+        })
+        setCartData(newCartData)
+    }
+
     useEffect(() => {
         handlePrice()
-    }, [showCart])
+    }, [showCart, cartData, setCartData])
 
     const tabHandler = (value: TabValues) => {
         setCurentTab(value)
@@ -388,9 +402,20 @@ const HomePage = () => {
                                     <div className='item-buttons-container'>
                                         <button className='cart-icon-button'> <MdClose size='20px' /> </button>
                                         <div className='quantity-container'>
-                                            <button onClick={() => { }} className='cart-icon-button'> <MdRemove size='20px' /> </button>
+                                            <button
+                                                onClick={() => { handleQuantity(item, 'dec') }}
+                                                disabled={item.quantity === 1}
+                                                className='cart-icon-button'
+                                            >
+                                                <MdRemove size='20px' />
+                                            </button>
                                             {item.quantity}
-                                            <button onClick={() => { }} className='cart-icon-button'> <MdAdd size='20px' /> </button>
+                                            <button
+                                                onClick={() => { handleQuantity(item, 'inc') }}
+                                                className='cart-icon-button'
+                                            >
+                                                <MdAdd size='20px' />
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
